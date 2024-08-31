@@ -1,0 +1,1 @@
+export type dictionary<T> = { [key: string]: T };

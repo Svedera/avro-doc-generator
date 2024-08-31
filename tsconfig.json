@@ -1,9 +1,22 @@
 {
+  "include": [
+    "src/**/*.ts",
+    "./*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ],
   "compilerOptions": {
     "baseUrl": "./",
-    "target": "es2016",
+    "target": "ES2020",
     "module": "commonjs",
     "esModuleInterop": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "outDir": "./bin",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
