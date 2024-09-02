@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avro Schema Documentation</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>{{{styles}}}</style>
     <script>
         function showSchema(index) {
             const schemaContent = document.getElementById('schemas-data').innerHTML;
@@ -38,9 +38,10 @@
                 return fields.map(field => {
                     if(Array.isArray(field.type) && field.type[1]?.type === 'enum') {
                          return `<tr>
+                    
                         <td class="p-4 border-b border-blue-gray-50">${field.type[1].name}</td>
                         <td class="p-4 border-b border-blue-gray-50" whitespace-normal>"null" ${getEnumString(field.type[1].symbols)}</td>
-                        <td class="p-4 border-b border-blue-gray-50 whitespace-normal">${field.type[1].doc || ''}</td>
+                        <td class="p-4 border-b border-blue-gray-50 whitespace-normal">${field.doc || ''}</td>
                                     </tr>`;
                     }
 
@@ -48,7 +49,7 @@
                          return `<tr>
                         <td class="p-4 border-b border-blue-gray-50">${field.type[1].name}</td>
                         <td class="p-4 border-b border-blue-gray-50" whitespace-normal>null, ${field.type[1].name}</td>
-                        <td class="p-4 border-b border-blue-gray-50 whitespace-normal">${field.type[1].doc || ''}</td>
+                        <td class="p-4 border-b border-blue-gray-50 whitespace-normal">${field.doc || ''}</td>
                                     </tr>`;
                     }
 
@@ -56,8 +57,8 @@
                         const arrayType = getArrayType(field.type[1])
                             return `<tr>
                         <td class="p-4 border-b border-blue-gray-50">${field.type[1].name}</td>
-                        <td class="p-4 border-b border-blue-gray-50" whitespace-normal>${arrayType}</td>
-                        <td class="p-4 border-b border-blue-gray-50 whitespace-normal">${field.type[1].doc || ''}</td>
+                        <td class="p-4 border-b border-blue-gray-50" whitespace-normal>null, ${arrayType}</td>
+                        <td class="p-4 border-b border-blue-gray-50 whitespace-normal">${field.doc || ''}</td>
                                     </tr>`;
                     }
 
@@ -65,7 +66,7 @@
                             return `<tr>
                         <td class="p-4 border-b border-blue-gray-50">${field.name}</td>
                         <td class="p-4 border-b border-blue-gray-50" whitespace-normal>${getEnumString(field.type.symbols)}</td>
-                        <td class="p-4 border-b border-blue-gray-50 whitespace-normal">${field.type.doc || ''}</td>
+                        <td class="p-4 border-b border-blue-gray-50 whitespace-normal">${field.doc || ''}</td>
                                     </tr>`;
                     }
                     if(field.type?.type === 'array'){
@@ -76,6 +77,7 @@
                         <td class="p-4 border-b border-blue-gray-50 whitespace-normal">${field.doc || ''}</td>
                                     </tr>`;
                     }
+
                     return `
                     <tr>
                         <td class="p-4 border-b border-blue-gray-50">${field.name}</td>

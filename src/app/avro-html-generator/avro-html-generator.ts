@@ -10,11 +10,15 @@ export class AvroHtmlGeneratorService
     implements AbstractHtmlGenerator<AvroSchemaView> {
 
     readonly templatePath = './avro-doc.mustache';
+    readonly stylesPath = './styles.css';
     private template: string;
+    private styles: string;
 
     constructor() {
         this.template = readFileSync(
             resolve(__dirname, this.templatePath), 'utf-8');
+        this.styles = readFileSync(
+            resolve(__dirname, this.stylesPath), 'utf-8');
     }
 
     generate(schemas: AvroSchemaView[]): string {
@@ -22,7 +26,8 @@ export class AvroHtmlGeneratorService
             ...schema,
             index: index
         }));
-    return Mustache.render(this.template, {
+        return Mustache.render(this.template, {
+            styles: this.styles, 
             schemas: schemasWithIndex,
             schemasString: JSON.stringify(schemasWithIndex)
         });
