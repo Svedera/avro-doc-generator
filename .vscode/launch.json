@@ -13,7 +13,9 @@
             ],
             "args": [
                 "--input",
-                "/home/etrssvt/Documents/Repos/avro-doc-generator/src/app/shared/mocks/test.avro.json"
+                "/home/etrssvt/Documents/Repos/avro-doc-generator/src/app/shared/mocks/full",
+                "--output",
+                "bin/documentation.html"
             ],
             "preLaunchTask": "npm: build",
             "program": "${workspaceFolder}/bin/bundle.js",

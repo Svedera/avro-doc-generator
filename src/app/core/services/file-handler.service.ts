@@ -5,7 +5,8 @@ import {
     mkdirSync,
     readdirSync,
     readFileSync,
-    writeFileSync
+    writeFileSync,
+    statSync
 } from 'fs';
 import { extname, join } from 'path';
 
@@ -13,19 +14,28 @@ import { singleton } from 'tsyringe';
 
 import { AbstractFileHandler } from '@interfaces/file-handler';
 import { AbstractLogging } from '@interfaces/logging';
-import { sourceType } from '@shared/utilities/file';
 import { SourceType } from '@enums/path-type';
-import { UnknownSourceTypeError } from '@shared/exceptions/file';
+import {
+    SourceProcessingError,
+    UnknownSourceTypeError
+} from '@shared/exceptions/file';
 
 @singleton()
 export class FileHandler implements AbstractFileHandler {
+
     constructor(private logger: AbstractLogging) { }
 
-    async getFilePaths(
+    getFilePaths(
         source: string,
-        extensions: string[]): Promise<string[]> {
+        extensions: string[]): string[] {
 
-        const type = await sourceType(source);
+        const exist = existsSync(source);
+        if (!exist) {
+            // TODO: Create proper error
+            throw new Error(`Input source does not exist by path: ${source}`)
+        }
+
+        const type = this.sourceType(source);
         switch (type) {
             case SourceType.File:
                 this.logger.debug(`Source path "${source}" is a file`);
@@ -57,7 +67,6 @@ export class FileHandler implements AbstractFileHandler {
             // TODO: handle possible issues
             throw new Error(`Failed to load file ${filePath} \n${exception}`)
         }
-        return null;
     }
 
     loadFiles(sourceFolder: string,
@@ -70,16 +79,16 @@ export class FileHandler implements AbstractFileHandler {
     }
 
     saveFile(
-        destinationFolder: string,
-        fileName: string,
+        destinationPath: string,
         fileContent: string): boolean {
+        try {
+            writeFileSync(destinationPath, fileContent);
+        } catch (exception) {
+            // TODO: make proper error
+            const errorMessage = (exception as Error).message;
+            throw new Error(`Could not save file.\n${errorMessage}`)
 
-        if (!existsSync(destinationFolder)) {
-            mkdirSync(destinationFolder);
         }
-
-        const destinationPath = join(destinationFolder, fileName);
-        writeFileSync(destinationPath, fileContent);
         return true;
     }
 
@@ -101,7 +110,8 @@ export class FileHandler implements AbstractFileHandler {
             const isValidExtension =
                 this.isValidExtensions(file.name, extensions);
             if (isValidExtension) {
-                selectedFiles.push(file.parentPath);
+                const filePath = join(file.parentPath, file.name);
+                selectedFiles.push(filePath);
             }
         }
 
@@ -119,4 +129,20 @@ export class FileHandler implements AbstractFileHandler {
                 validExtension.toLocaleLowerCase() === extension);
             return isValidExtension != null;
         };
+
+
+    sourceType(path: string): SourceType {
+        try {
+            const stats = statSync(path);
+
+            if (stats.isFile()) {
+                return SourceType.File;
+            } else if (stats.isDirectory()) {
+                return SourceType.Folder;
+            }
+            return SourceType.Unknown;
+        } catch (error) {
+            throw new SourceProcessingError(path, error as Error)
+        }
+    }
 }

@@ -1,7 +1,7 @@
 export abstract class AbstractFileHandler {
     abstract getFilePaths(
         source: string,
-        extensions: string[]): Promise<string[]>;
+        extensions: string[]): string[];
     abstract loadFile(
         filePath: string,
         encoding: BufferEncoding): string | null;
@@ -10,7 +10,6 @@ export abstract class AbstractFileHandler {
         extensions: string[],
         encoding: BufferEncoding): string[];
     abstract saveFile(
-        destinationFolder: string,
-        fileName: string,
+        destination: string,
         fileContent: string): boolean;
 }

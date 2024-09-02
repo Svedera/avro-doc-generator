@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const config: webpack.Configuration = {
   entry: './src/index.ts',
@@ -42,7 +43,15 @@ const config: webpack.Configuration = {
   plugins: [
     new webpack.BannerPlugin({
       banner: '#!/usr/bin/env node', raw: true
-    })  // Shebang for CLI tools
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/**/*.mustache',
+          to: '[name][ext]'
+        },
+      ],
+    }),
   ],
 };
 
