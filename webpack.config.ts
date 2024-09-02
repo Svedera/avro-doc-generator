@@ -11,7 +11,7 @@ const config: webpack.Configuration = {
 
   output: {
     path: path.resolve(__dirname, 'bin'),
-    filename: 'bundle.js',
+    filename: 'index.js',
   },
 
   resolve: {

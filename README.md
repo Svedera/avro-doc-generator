@@ -12,6 +12,6 @@ To generate from a file or folder with schemas run:
 
 ```bash
 
-avro-doc-generator --input {path_to_folder_or_file} --output {documentation.html}
+avro-doc-gen --input {path_to_folder_or_file} --output {documentation.html}
 
 ```

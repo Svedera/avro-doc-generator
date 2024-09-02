@@ -1,5 +1,5 @@
 {
-  "name": "avro-doc-generator",
+  "name": "avro-doc-gen",
   "version": "1.0.0",
   "type": "commonjs",
   "keywords": [
@@ -15,16 +15,16 @@
     "type": "git",
     "url": "TODO"
   },
-  "homepage": "https://github.com/Svedera/avro-doc-generator",
-  "main": "bin/index.js",
+  "homepage": "https://github.com/Svedera/avro-doc-gen",
+  "main": "index.js",
   "bin": {
-    "avro-doc-generator": "bin/index.js"
+    "avro-doc-gen": "bin/index.js"
   },
   "scripts": {
     "build": "npm run build:css && webpack",
     "build:css": "npx postcss src/styles.css -o bin/styles.css",
     "start": "ts-node src/index.ts",
-    "link": "npm run build && link avro-doc-generator",
+    "link": "npm run build && link avro-doc-gen",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "jest",
     "test:watch": "npm run test -- --watch"
