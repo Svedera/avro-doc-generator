@@ -13,7 +13,7 @@
             ],
             "args": [
                 "--input",
-                "/home/etrssvt/Documents/Repos/avro-doc-generator/src/app/shared/mocks/full",
+                "./src/app/shared/mocks/events",
                 "--output",
                 "bin/documentation.html"
             ],

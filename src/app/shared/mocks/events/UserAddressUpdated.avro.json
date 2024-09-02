@@ -1,0 +1,45 @@
+{
+    "type": "record",
+    "name": "UserAddressUpdatedEvent",
+    "namespace": "com.example.events",
+    "fields": [
+        {
+            "name": "userId",
+            "type": "string"
+        },
+        {
+            "name": "address",
+            "type": {
+                "type": "record",
+                "name": "Address",
+                "fields": [
+                    {
+                        "name": "street",
+                        "type": "string"
+                    },
+                    {
+                        "name": "city",
+                        "type": "string"
+                    },
+                    {
+                        "name": "state",
+                        "type": "string"
+                    },
+                    {
+                        "name": "zipCode",
+                        "type": "string"
+                    },
+                    {
+                        "name": "country",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "updatedAt",
+            "type": "long",
+            "logicalType": "timestamp-millis"
+        }
+    ]
+}

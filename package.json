@@ -23,7 +23,7 @@
   "scripts": {
     "build": "npm run build:css && webpack",
     "build:css": "npx postcss src/styles.css -o bin/styles.css",
-    "publish": "npm run build && npm run publish",
+    "ship": "npm run build && npm publish",
     "start": "ts-node src/index.ts",
     "link": "npm run build && link avro-doc-gen",
     "lint": "eslint . --ext .ts,.tsx",

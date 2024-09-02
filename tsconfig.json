@@ -2,7 +2,7 @@
   "include": [
     "src/**/*.ts",
     "./*.ts"
-  ],
+, "src/app/shared/mocks/events/UserCreated.avsc"  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
