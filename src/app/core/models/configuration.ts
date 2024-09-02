@@ -9,5 +9,5 @@ export class Configuration {
 }
 
 export const DefaultConfiguration = (): Configuration => ({
-    logLevel: LogLevel.Debug
+    logLevel: LogLevel.Information
 })
