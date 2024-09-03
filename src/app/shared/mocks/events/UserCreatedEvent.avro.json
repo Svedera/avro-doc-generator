@@ -1,0 +1,49 @@
+{
+    "type": "record",
+    "name": "UserCreatedEvent",
+    "namespace": "com.example.events",
+    "fields": [
+        {
+            "name": "userId",
+            "type": "string",
+            "doc": "Unique identifier for the user."
+        },
+        {
+            "name": "username",
+            "type": [
+                "null",
+                "string"
+            ],
+            "doc": "Username chosen by the user.",
+            "default": null
+        },
+        {
+            "name": "email",
+            "type": [
+                "null",
+                "string"
+            ],
+            "doc": "Email address of the user.",
+            "default": null
+        },
+        {
+            "name": "createdAt",
+            "type": "long",
+            "logicalType": "timestamp-millis",
+            "doc": "Timestamp when the user account was created."
+        },
+        {
+            "name": "status",
+            "type": {
+                "type": "enum",
+                "name": "Status",
+                "symbols": [
+                    "ACTIVE",
+                    "INACTIVE"
+                ]
+            },
+            "doc": "Current status of the user account.",
+            "default": "ACTIVE"
+        }
+    ]
+}

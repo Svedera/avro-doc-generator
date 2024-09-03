@@ -2,40 +2,59 @@
     "type": "record",
     "name": "LoginAttemptedEvent",
     "namespace": "com.example.events",
+    "version": 1,
     "fields": [
         {
             "name": "userId",
-            "type": "string"
+            "type": "string",
+            "doc": "Unique identifier for the user attempting to log in."
         },
         {
             "name": "attemptTime",
             "type": "long",
-            "logicalType": "timestamp-millis"
+            "logicalType": "timestamp-millis",
+            "doc": "Timestamp when the login attempt was made."
         },
         {
             "name": "successful",
-            "type": "boolean"
+            "type": "boolean",
+            "doc": "Whether the login attempt was successful.",
+            "default": false
         },
         {
             "name": "location",
             "type": {
-                "type": "record",
-                "name": "Location",
-                "fields": [
-                    {
-                        "name": "ipAddress",
-                        "type": "string"
-                    },
-                    {
-                        "name": "city",
-                        "type": "string"
-                    },
-                    {
-                        "name": "country",
-                        "type": "string"
+                "type": "array",
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "record",
+                        "name": "Location",
+                        "fields": [
+                            {
+                                "name": "ipAddress",
+                                "type": "string",
+                                "doc": "IP address of the user."
+                            },
+                            {
+                                "name": "city",
+                                "type": [
+                                    "null",
+                                    "string"
+                                ],
+                                "doc": "City from which the login attempt was made.",
+                                "default": null
+                            },
+                            {
+                                "name": "country",
+                                "type": "string",
+                                "doc": "Country from which the login attempt was made."
+                            }
+                        ]
                     }
-                ]
-            }
+                }
+            },
+            "doc": "Two-dimensional array representing location details of the login attempt."
         }
     ]
 }

@@ -1,0 +1,90 @@
+{
+    "type": "record",
+    "name": "OrderShippedEvent",
+    "namespace": "com.example.events",
+    "fields": [
+        {
+            "name": "orderId",
+            "type": "string",
+            "doc": "Unique identifier for the order."
+        },
+        {
+            "name": "userId",
+            "type": "string",
+            "doc": "Unique identifier of the user who placed the order."
+        },
+        {
+            "name": "shippingDetails",
+            "type": {
+                "type": "record",
+                "name": "ShippingDetails",
+                "fields": [
+                    {
+                        "name": "address",
+                        "type": "Address",
+                        "doc": "Shipping address."
+                    },
+                    {
+                        "name": "carrier",
+                        "type": "string",
+                        "doc": "Shipping carrier."
+                    },
+                    {
+                        "name": "trackingNumber",
+                        "type": [
+                            "null",
+                            "string"
+                        ],
+                        "doc": "Tracking number of the shipment.",
+                        "default": null
+                    },
+                    {
+                        "name": "estimatedDelivery",
+                        "type": [
+                            "null",
+                            "long"
+                        ],
+                        "logicalType": "timestamp-millis",
+                        "doc": "Estimated delivery time.",
+                        "default": null
+                    }
+                ]
+            },
+            "doc": "Details of the shipment."
+        },
+        {
+            "name": "items",
+            "type": {
+                "type": "array",
+                "items": {
+                    "type": "record",
+                    "name": "Item",
+                    "fields": [
+                        {
+                            "name": "productId",
+                            "type": "string",
+                            "doc": "Product identifier."
+                        },
+                        {
+                            "name": "quantity",
+                            "type": "int",
+                            "doc": "Quantity of the product shipped."
+                        },
+                        {
+                            "name": "price",
+                            "type": "float",
+                            "doc": "Price of the product at the time of shipment."
+                        }
+                    ]
+                }
+            },
+            "doc": "List of items in the order."
+        },
+        {
+            "name": "shippedAt",
+            "type": "long",
+            "logicalType": "timestamp-millis",
+            "doc": "Timestamp when the order was shipped."
+        }
+    ]
+}

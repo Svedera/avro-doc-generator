@@ -5,20 +5,33 @@
     "fields": [
         {
             "name": "productId",
-            "type": "string"
+            "type": "string",
+            "doc": "Unique identifier for the product."
         },
         {
             "name": "warehouseId",
-            "type": "string"
+            "type": "string",
+            "doc": "Unique identifier for the warehouse where the inventory is updated."
         },
         {
             "name": "quantity",
-            "type": "int"
+            "type": "int",
+            "doc": "Updated quantity of the product in the warehouse."
         },
         {
             "name": "updatedDate",
             "type": "long",
-            "logicalType": "timestamp-millis"
+            "logicalType": "timestamp-millis",
+            "doc": "Timestamp when the inventory was updated."
+        },
+        {
+            "name": "notes",
+            "type": [
+                "null",
+                "string"
+            ],
+            "doc": "Optional notes about the inventory update.",
+            "default": null
         }
     ]
 }

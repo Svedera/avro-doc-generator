@@ -1,0 +1,67 @@
+{
+    "type": "record",
+    "name": "InventoryRestockedEvent",
+    "namespace": "com.example.events",
+    "version": 1,
+    "fields": [
+        {
+            "name": "productId",
+            "type": "string",
+            "doc": "Unique identifier for the product."
+        },
+        {
+            "name": "quantityRestocked",
+            "type": "int",
+            "doc": "Number of items restocked."
+        },
+        {
+            "name": "warehouseId",
+            "type": "string",
+            "doc": "Identifier of the warehouse where the inventory was restocked."
+        },
+        {
+            "name": "supplierDetails",
+            "type": {
+                "type": "record",
+                "name": "SupplierDetails",
+                "fields": [
+                    {
+                        "name": "supplierId",
+                        "type": "string",
+                        "doc": "Identifier of the supplier."
+                    },
+                    {
+                        "name": "supplierName",
+                        "type": "string",
+                        "doc": "Name of the supplier."
+                    },
+                    {
+                        "name": "contactEmail",
+                        "type": [
+                            "null",
+                            "string"
+                        ],
+                        "doc": "Contact email of the supplier.",
+                        "default": null
+                    },
+                    {
+                        "name": "contactPhone",
+                        "type": [
+                            "null",
+                            "string"
+                        ],
+                        "doc": "Contact phone number of the supplier.",
+                        "default": null
+                    }
+                ]
+            },
+            "doc": "Details of the supplier."
+        },
+        {
+            "name": "restockedAt",
+            "type": "long",
+            "logicalType": "timestamp-millis",
+            "doc": "Timestamp when the inventory was restocked."
+        }
+    ]
+}

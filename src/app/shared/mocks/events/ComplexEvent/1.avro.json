@@ -1,0 +1,100 @@
+{
+    "type": "record",
+    "name": "ComplexEvent",
+    "namespace": "com.example.events",
+    "version": 1,
+    "fields": [
+        {
+            "name": "eventId",
+            "type": "string",
+            "doc": "Unique identifier for the event."
+        },
+        {
+            "name": "primaryData",
+            "type": {
+                "type": "record",
+                "name": "PrimaryData",
+                "fields": [
+                    {
+                        "name": "primaryField1",
+                        "type": "string",
+                        "doc": "First primary field."
+                    },
+                    {
+                        "name": "primaryField2",
+                        "type": {
+                            "type": "record",
+                            "name": "NestedPrimaryData",
+                            "fields": [
+                                {
+                                    "name": "nestedField1",
+                                    "type": "int",
+                                    "doc": "First nested field."
+                                },
+                                {
+                                    "name": "nestedField2",
+                                    "type": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "record",
+                                            "name": "DeepNestedData",
+                                            "fields": [
+                                                {
+                                                    "name": "deepField1",
+                                                    "type": "string",
+                                                    "doc": "First deep nested field."
+                                                },
+                                                {
+                                                    "name": "deepField2",
+                                                    "type": [
+                                                        "null",
+                                                        "string"
+                                                    ],
+                                                    "doc": "Second deep nested field.",
+                                                    "default": null
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "doc": "Array of deeply nested fields."
+                                }
+                            ]
+                        },
+                        "doc": "Nested primary data."
+                    }
+                ]
+            },
+            "doc": "Primary data of the complex event."
+        },
+        {
+            "name": "secondaryData",
+            "type": {
+                "type": "record",
+                "name": "SecondaryData",
+                "fields": [
+                    {
+                        "name": "secondaryField1",
+                        "type": "string",
+                        "doc": "First secondary field."
+                    },
+                    {
+                        "name": "secondaryField2",
+                        "type": [
+                            "null",
+                            "int"
+                        ],
+                        "doc": "Second secondary field.",
+                        "default": null
+                    }
+                ]
+            },
+            "doc": "Secondary data of the complex event."
+        },
+        {
+            "name": "eventTimestamp",
+            "type": "long",
+            "logicalType": "timestamp-millis",
+            "doc": "Timestamp when the event occurred."
+        }
+    ]
+}

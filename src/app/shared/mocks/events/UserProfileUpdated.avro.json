@@ -1,0 +1,98 @@
+{
+    "type": "record",
+    "name": "UserProfileUpdatedEvent",
+    "namespace": "com.example.events",
+    "fields": [
+        {
+            "name": "userId",
+            "type": "string",
+            "doc": "Unique identifier for the user."
+        },
+        {
+            "name": "profile",
+            "type": {
+                "type": "record",
+                "name": "UserProfile",
+                "fields": [
+                    {
+                        "name": "fullName",
+                        "type": "string",
+                        "doc": "Full name of the user."
+                    },
+                    {
+                        "name": "birthdate",
+                        "type": [
+                            "null",
+                            "long"
+                        ],
+                        "logicalType": "timestamp-millis",
+                        "doc": "Birthdate of the user.",
+                        "default": null
+                    },
+                    {
+                        "name": "address",
+                        "type": {
+                            "type": "record",
+                            "name": "Address",
+                            "fields": [
+                                {
+                                    "name": "street",
+                                    "type": "string",
+                                    "doc": "Street address."
+                                },
+                                {
+                                    "name": "city",
+                                    "type": "string",
+                                    "doc": "City."
+                                },
+                                {
+                                    "name": "state",
+                                    "type": "string",
+                                    "doc": "State or province."
+                                },
+                                {
+                                    "name": "postalCode",
+                                    "type": "string",
+                                    "doc": "Postal code."
+                                },
+                                {
+                                    "name": "country",
+                                    "type": "string",
+                                    "doc": "Country."
+                                }
+                            ]
+                        },
+                        "doc": "Address of the user."
+                    },
+                    {
+                        "name": "preferences",
+                        "type": {
+                            "type": "record",
+                            "name": "Preferences",
+                            "fields": [
+                                {
+                                    "name": "language",
+                                    "type": "string",
+                                    "doc": "Preferred language."
+                                },
+                                {
+                                    "name": "newsletterSubscribed",
+                                    "type": "boolean",
+                                    "doc": "Indicates if the user is subscribed to newsletters."
+                                }
+                            ]
+                        },
+                        "doc": "User preferences."
+                    }
+                ]
+            },
+            "doc": "Updated profile of the user."
+        },
+        {
+            "name": "updatedAt",
+            "type": "long",
+            "logicalType": "timestamp-millis",
+            "doc": "Timestamp when the profile was updated."
+        }
+    ]
+}

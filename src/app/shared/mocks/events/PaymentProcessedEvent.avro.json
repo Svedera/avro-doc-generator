@@ -1,0 +1,61 @@
+{
+    "type": "record",
+    "name": "PaymentProcessedEvent",
+    "namespace": "com.example.events",
+    "fields": [
+        {
+            "name": "paymentId",
+            "type": "string",
+            "doc": "Unique identifier for the payment."
+        },
+        {
+            "name": "orderId",
+            "type": "string",
+            "doc": "Unique identifier for the associated order."
+        },
+        {
+            "name": "userId",
+            "type": "string",
+            "doc": "Unique identifier of the user who made the payment."
+        },
+        {
+            "name": "paymentMethod",
+            "type": {
+                "type": "enum",
+                "name": "PaymentMethod",
+                "symbols": [
+                    "CREDIT_CARD",
+                    "PAYPAL",
+                    "BANK_TRANSFER"
+                ]
+            },
+            "doc": "Method used for the payment."
+        },
+        {
+            "name": "amount",
+            "type": "float",
+            "doc": "Amount paid by the user."
+        },
+        {
+            "name": "currency",
+            "type": "string",
+            "doc": "Currency in which the payment was made.",
+            "default": "USD"
+        },
+        {
+            "name": "paymentDate",
+            "type": "long",
+            "logicalType": "timestamp-millis",
+            "doc": "Timestamp when the payment was processed."
+        },
+        {
+            "name": "notes",
+            "type": [
+                "null",
+                "string"
+            ],
+            "doc": "Optional notes about the payment.",
+            "default": null
+        }
+    ]
+}
