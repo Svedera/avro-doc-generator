@@ -1,3 +1,3 @@
 export abstract class AbstractHtmlGenerator<T> {
-    abstract generate(items: T[]): string;
+    abstract generate(items: T[], groupBy: string): string;
 }

@@ -7,10 +7,16 @@
     <title>Avro Schema Documentation</title>
     <style>{{{styles}}}</style>
     <script>
-        function showSchema(index) {
+     function toggleCollapse(button) {
+        const childNodes = button.nextElementSibling;
+        if (childNodes) {
+            childNodes.classList.toggle('hidden');
+        }
+    }
+    function showSchema(index) {
             const schemaContent = document.getElementById('schemas-data').innerHTML;
             const schemas = JSON.parse(schemaContent);
-            const schema = schemas[index];
+            const schema = schemas[index].item;
             if (schema == null) {
                 return;
             }
@@ -38,7 +44,6 @@
                 return fields.map(field => {
                     if(Array.isArray(field.type) && field.type[1]?.type === 'enum') {
                          return `<tr>
-                    
                         <td class="p-4 border-b border-blue-gray-50">${field.type[1].name}</td>
                         <td class="p-4 border-b border-blue-gray-50" whitespace-normal>"null", ${getEnumString(field.type[1].symbols)}</td>
                         <td class="p-4 border-b border-blue-gray-50 whitespace-normal">${field.doc || ''}</td>
@@ -153,15 +158,48 @@
         <div class="w-1/4 bg-gray-800 text-white p-4">
             <h2 class="block font-sans text-3xl antialiased font-semibold leading-snug tracking-normal text-inherit">Schemas</h2>
             <ul id="events-list" class="space-y-2 pt-4">
+                {{#groupedSchemas}}
+                 <a
+                    data-twe-collapse-init
+                    href="#collapse{{groupName}}"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="collapse{{groupName}}"
+                    onclick="toggleCollapse(this)"
+                    class="flex items-center px-2 hover:bg-secondary-100 focus:text-primary active:text-primary">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2.5"
+                        stroke="currentColor"
+                        class="h-4 w-4">
+                        <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                    {{#groupName}}{{groupName}}{{/groupName}}
+                </a>
+                <ul
+                    class="!visible hidden"
+                    id="collapse{{groupName}}"
+                    data-twe-collapse-item>
                 {{#schemas}}
-                <li class="mb-2">
-                    <a href="#" 
-                       class="schema-link font-medium hover:text-blue-500 break-words"
-                       data-index="{{index}}">
-                        {{schemaName}} {{#version}} v.{{version}}{{/version}}
-                    </a>
-                </li>
+                        
+                    <li class="mb-2">
+                        <a href="#" 
+                        class="schema-link ml-4 px-2 hover:bg-secondary-100"
+                        data-index="{{index}}">
+                            {{#item}}
+                                {{schemaName}}{{#version}} v.{{version}}{{/version}}
+                            {{/item}}
+                        </a>
+                    </li>
+                        
                 {{/schemas}}
+                </ul>
+            {{/groupedSchemas}}
             </ul>
 
         </div>

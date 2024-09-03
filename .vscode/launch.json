@@ -15,7 +15,7 @@
                 "--input",
                 "./src/app/shared/mocks/events",
                 "--output",
-                "bin/documentation.html"
+                "bin/documentation.html",
             ],
             "preLaunchTask": "npm: build",
             "program": "${workspaceFolder}/bin/index.js",
