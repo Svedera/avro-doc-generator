@@ -19,12 +19,12 @@ export class DocumentationGenerator {
 
     }
 
-    async generateHtml(args: CliArguments) {
-        const schemaFiles = await this.fileHandler.getFilePaths(
+    generateHtml(args: CliArguments) {
+        const schemaFiles = this.fileHandler.getFilePaths(
             args.input,
             this.avroFileExtensions);
         const parsedSchemas = this.getParsedSchemas(schemaFiles);
-        const html = this.htmlGenerator.generate(parsedSchemas);
+        const html = this.htmlGenerator.generate(parsedSchemas, args.group);
         this.fileHandler.saveFile(args.output, html);
     }
 

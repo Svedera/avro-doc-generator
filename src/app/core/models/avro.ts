@@ -1,4 +1,5 @@
 import { dictionary } from '@shared/types/general';
+import { ItemWithIndex } from './mustache';
 
 export enum AvroFieldType {
     Null = 'null',
@@ -88,6 +89,9 @@ export class AvroType {
 }
 
 export class AvroSchemaView extends AvroSchema {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
+
     schemaName: string;
     fieldDescriptions: (AvroField | AvroType)[];
 
@@ -119,6 +123,8 @@ export class AvroSchemaView extends AvroSchema {
         return name;
     }
 }
+
+export type AvroViewWithIndex = ItemWithIndex<AvroSchemaView>;
 
 export const isSimpleField = (
     type: AvroSchemaType) =>

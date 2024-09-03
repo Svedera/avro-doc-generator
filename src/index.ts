@@ -20,6 +20,13 @@ const resolveArgs = (): CliArguments => {
       description: 'Output file path',
       default: './documentation.html'
     })
+    .option('group', {
+      alias: 'g',
+      type: 'string',
+      description:
+        'Field name in the root of the schema by which the should be grouped',
+      default: 'name'
+    })
     .argv as CliArguments;
   return args;
 }
@@ -30,7 +37,7 @@ try {
   // eslint-disable-next-line no-console
   console.log(`Source path: ${args.input}\nOutput path: ${args.output}`);
   const generator = initGenerator();
-  const html = generator.generateHtml(args);
+  generator.generateHtml(args);
 } catch (exception) {
   // TODO: use logger
   // eslint-disable-next-line no-console

@@ -3,7 +3,8 @@ import { resolve } from 'path';
 import Mustache from 'mustache';
 
 import { AbstractHtmlGenerator } from '@interfaces/html-generator';
-import { AvroSchemaView } from '@models/avro';
+import { AvroSchemaView, AvroViewWithIndex } from '@models/avro';
+import { ItemWithIndex, ViewGroup } from '@models/mustache';
 
 
 export class AvroHtmlGeneratorService
@@ -21,15 +22,42 @@ export class AvroHtmlGeneratorService
             resolve(__dirname, this.stylesPath), 'utf-8');
     }
 
-    generate(schemas: AvroSchemaView[]): string {
-        const schemasWithIndex = schemas.map((schema, index) => ({
-            ...schema,
-            index: index
-        }));
+
+    generate(schemas: AvroSchemaView[], groupBy: string): string {
+        const schemasWithIndex = this.getIndexedSchemas(schemas);
+        const groupedSchemas = this.groupSchemas(schemasWithIndex, groupBy);
         return Mustache.render(this.template, {
-            styles: this.styles, 
-            schemas: schemasWithIndex,
+            styles: this.styles,
+            groupedSchemas: groupedSchemas,
             schemasString: JSON.stringify(schemasWithIndex)
         });
+    }
+
+    getIndexedSchemas =
+        (schemas: AvroSchemaView[]): AvroViewWithIndex[] =>
+            schemas.map((schema, index) => (new ItemWithIndex(index, schema)));
+
+    groupSchemas(
+        schemaEntries: AvroViewWithIndex[],
+        groupField: string): ViewGroup<AvroViewWithIndex>[] {
+
+        const groupedSchemas: { [key: string]: AvroViewWithIndex[] }
+            = schemaEntries.reduce((acc, schemaEntry: AvroViewWithIndex) => {
+                const key = groupField as keyof AvroSchemaView;
+                const groupFieldValue = schemaEntry.item[key];
+                if (!acc[groupFieldValue]) {
+                    acc[groupFieldValue] = [] as AvroViewWithIndex[];
+                }
+                acc[groupFieldValue].push(schemaEntry);
+                return acc;
+            }, {} as { [key: string]: AvroViewWithIndex[] });
+
+        const groupsForMustache = Object.keys(groupedSchemas)
+            .map(groupName => ({
+                groupName,
+                schemas: groupedSchemas[groupName]
+            }));
+
+        return groupsForMustache;
     }
 }
