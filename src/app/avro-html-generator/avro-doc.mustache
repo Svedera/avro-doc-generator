@@ -14,8 +14,16 @@
         }
     }
     function showSchema(index) {
+     function toggleCollapse(button) {
+        const childNodes = button.nextElementSibling;
+        if (childNodes) {
+            childNodes.classList.toggle('hidden');
+        }
+    }
+    function showSchema(index) {
             const schemaContent = document.getElementById('schemas-data').innerHTML;
             const schemas = JSON.parse(schemaContent);
+            const schema = schemas[index].item;
             const schema = schemas[index].item;
             if (schema == null) {
                 return;
@@ -198,6 +206,8 @@
                     </li>
                         
                 {{/schemas}}
+                </ul>
+            {{/groupedSchemas}}
                 </ul>
             {{/groupedSchemas}}
             </ul>
