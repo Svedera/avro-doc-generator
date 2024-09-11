@@ -2,7 +2,6 @@ import 'reflect-metadata';
 
 import {
     existsSync,
-    mkdirSync,
     readdirSync,
     readFileSync,
     writeFileSync,

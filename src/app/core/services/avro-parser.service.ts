@@ -1,9 +1,15 @@
 import 'reflect-metadata';
 import { singleton } from 'tsyringe';
-import * as avro from 'avsc';
 
 import { AbstractAvroParser } from '@interfaces/avro-parser';
-import { AvroField, AvroFieldType, AvroSchema, AvroSchemaView, AvroType, isSimpleField } from '@models/avro';
+import {
+    AvroField,
+    AvroFieldType,
+    AvroSchema,
+    AvroSchemaView,
+    AvroType,
+    isSimpleField
+} from '@models/avro';
 import { AbstractLogging } from '@interfaces/logging';
 
 
@@ -36,13 +42,10 @@ export class AvroParser implements AbstractAvroParser {
                 return;
             }
 
-
             for (const field of currentFields) {
                 if (isSimpleField(field.type)) {
                     continue;
                 }
-
-
 
                 if (field.type === AvroFieldType.Enum) {
                     const fieldAdded = flatFields.find(
@@ -51,7 +54,6 @@ export class AvroParser implements AbstractAvroParser {
                         flatFields.push(field);
                     }
                 }
-
 
                 if (Array.isArray(field.type) &&
                     field.type[0] === 'null' &&
@@ -108,5 +110,4 @@ export class AvroParser implements AbstractAvroParser {
 
         return flatFields;
     }
-
 }

@@ -13,7 +13,7 @@
   "description": "A package for generation of documentation for avro schemas.",
   "repository": {
     "type": "git",
-    "url": "TODO"
+    "url": "https://github.com/Svedera/avro-doc-generator"
   },
   "homepage": "https://github.com/Svedera/avro-doc-gen",
   "main": "index.js",
