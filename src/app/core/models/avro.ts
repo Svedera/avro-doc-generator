@@ -19,7 +19,7 @@ export enum AvroFieldType {
 }
 
 export type AvroSchemaType =
-    AvroType | AvroFieldType | (AvroType | AvroFieldType)[];
+    AvroType | AvroFieldType | (AvroType | AvroFieldType)[] | string[];
 
 export class AvroField {
     name: string;

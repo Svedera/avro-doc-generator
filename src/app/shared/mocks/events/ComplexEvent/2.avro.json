@@ -34,7 +34,10 @@
                                 {
                                     "name": "nestedField2",
                                     "type": {
-                                        "type": "array",
+                                        "type": [
+                                            "null",
+                                            "array"
+                                        ],
                                         "items": {
                                             "type": "record",
                                             "name": "DeepNestedData",

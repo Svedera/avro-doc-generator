@@ -12,7 +12,9 @@ export class AvroHtmlGeneratorService
 
     readonly templatePath = './avro-doc.mustache';
     readonly stylesPath = './styles.css';
+    readonly scriptPath = './avro-doc.js';
     private template: string;
+    private script: string;
     private styles: string;
 
     constructor() {
@@ -20,6 +22,8 @@ export class AvroHtmlGeneratorService
             resolve(__dirname, this.templatePath), 'utf-8');
         this.styles = readFileSync(
             resolve(__dirname, this.stylesPath), 'utf-8');
+        this.script = readFileSync(
+            resolve(__dirname, this.scriptPath), 'utf-8');
     }
 
 
@@ -28,6 +32,7 @@ export class AvroHtmlGeneratorService
         const groupedSchemas = this.groupSchemas(schemasWithIndex, groupBy);
         return Mustache.render(this.template, {
             styles: this.styles,
+            script: this.script,
             groupedSchemas: groupedSchemas,
             schemasString: JSON.stringify(schemasWithIndex)
         });

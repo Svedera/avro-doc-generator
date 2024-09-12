@@ -15,7 +15,7 @@ const config: webpack.Configuration = {
   },
 
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts'],
     plugins: [
       new TsconfigPathsPlugin({
         configFile: path.resolve(__dirname, './tsconfig.json'),
