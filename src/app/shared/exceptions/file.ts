@@ -29,3 +29,13 @@ export class FileLoadError extends Error {
         super(message);
     }
 }
+
+export class JsonParsingError extends Error {
+    public code = ErrorCode.JsonParsingError;
+
+    constructor(sourcePath: string = '') {
+        const message =
+            `Could not parse json file: "${sourcePath}"`;
+        super(message);
+    }
+}

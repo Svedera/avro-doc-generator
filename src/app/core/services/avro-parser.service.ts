@@ -11,6 +11,7 @@ import {
     isSimpleField
 } from '@models/avro';
 import { AbstractLogging } from '@interfaces/logging';
+import { JsonParsingError } from '@shared/exceptions/file';
 
 
 @singleton()
@@ -18,12 +19,17 @@ export class AvroParser implements AbstractAvroParser {
 
     constructor(private logging: AbstractLogging) { }
 
-    parse(content: string): AvroSchema {
-        this.logging.debug('Starting parsing of schema')
-        const avroSchema: AvroSchema =
-            JSON.parse(content) as AvroSchema;
-        this.logging.debug('Parsing of schema is finished');
-        return avroSchema;
+    parse(content: string): AvroSchema | null {
+        try {
+            this.logging.debug('Starting parsing of schema')
+            const avroSchema: AvroSchema =
+                JSON.parse(content) as AvroSchema;
+            this.logging.debug('Parsing of schema is finished');
+            return avroSchema;
+        }
+        catch (exception) {
+            throw new JsonParsingError(exception as string);
+        }
     }
 
     convertToView(schema: AvroSchema): AvroSchemaView {

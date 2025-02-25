@@ -1,5 +1,6 @@
 export enum ErrorCodes {
     SourceProcessingError,
     UnknownSourceTypeError,
-    FileLoadError
+    FileLoadError,
+    JsonParsingError,
 }
